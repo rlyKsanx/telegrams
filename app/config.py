@@ -14,6 +14,8 @@ class Settings(BaseSettings):
     HOST: str
     PORT: int
 
+    DATABASE_URL: str
+
     model_config = SettingsConfigDict(
         env_file=ROOT_DIR / ".env",
         env_nested_delimiter="_",

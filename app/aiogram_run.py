@@ -4,7 +4,7 @@ from aiogram.webhook.aiohttp_server import SimpleRequestHandler, setup_applicati
 from aiogram.types import BotCommand, BotCommandScopeDefault
 
 from config import bot, dp, settings, WEBHOOK_PATH
-from handlers.client import router as client_router
+from bot.handlers.client import router as client_router
 
 
 async def set_commands():
@@ -38,8 +38,12 @@ def main() -> None:
         app,
         path=WEBHOOK_PATH,
     )
-    setup_application(app, dp, bot=bot)
-    web.run_app(app, host=settings.HOST, port=settings.PORT)
+    setup_application(
+        app,
+        dp,
+        bot=bot,
+    )
+    web.run_app(app=app, host=settings.HOST, port=settings.PORT)
 
 
 if __name__ == "__main__":
