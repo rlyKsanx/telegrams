@@ -8,4 +8,4 @@ WORKDIR /app
 
 RUN uv sync --frozen --no-cache
 
-CMD ["uv", "run", "app/main.py"]
+CMD ["uv", "run", "app/aiogram_run.py"]

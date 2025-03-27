@@ -1,26 +1,27 @@
-from pydantic_settings import BaseSettings, SettingsConfigDict
-from pydantic import BaseModel
 from pathlib import Path
+from pydantic_settings import BaseSettings, SettingsConfigDict
+from aiogram import Bot, Dispatcher
+
 
 ROOT_DIR = Path(__file__).parent.parent
 
 
-class ConfigTelegram(BaseModel):
-    token: str = "TOKEN"
-    admin_id: int = 123456789
-
-
 class Settings(BaseSettings):
-    db_url: str = "sqlite+aiosqlite:///./db.sqlite3"
-    telegram: ConfigTelegram = ConfigTelegram()
+    BOT_TOKEN: str
+    ADMIN_ID: int
+
+    WEBHOOK_URL: str
+    HOST: str
+    PORT: int
 
     model_config = SettingsConfigDict(
-        env_file_encoding="utf-8",
         env_file=ROOT_DIR / ".env",
         env_nested_delimiter="_",
-        env_prefix="config_",
-        case_sensitive=True,
     )
 
 
 settings = Settings()
+
+WEBHOOK_PATH = f"/{settings.BOT_TOKEN}"
+bot = Bot(token=settings.BOT_TOKEN)
+dp = Dispatcher()
